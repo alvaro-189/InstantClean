@@ -21,7 +21,7 @@ npm install
 
 ## Paso 3: Inicia la aplicación
 
-Deja a metro en su _propia_ terminal. Abre una _nueva_ termina en la _raiz_ del projecto. 
+Deja a metro en su _propia_ terminal. Abre una _nueva_ terminal en la _raiz_ del proyecto. 
 
 ```bash
 npm install
