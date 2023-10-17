@@ -1,7 +1,10 @@
+
+
+
 import React, { useState } from "react";
 import { View,Text ,TextInput,Image, StyleSheet, useWindowDimensions, ScrollView} from "react-native"
-import Logo from '../../../assets/images/logo.png'
-import BgImage from '../../../assets/images/blur.jpeg'
+import Logo from "../../../assets/Logos/Logo.png"
+
 import CustomInput from "../../components/CustomInputs/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import {useNavigation} from '@react-navigation/native'
@@ -10,14 +13,13 @@ const SingInScreen=()=>{
 
     const {height}=useWindowDimensions();
     const navigation =useNavigation();
-    
     const{control,handleSubmit,formState:{errors}}=useForm();
     const onSingInPress=(data)=>{
         console.log(data)
         //validate user
-
         navigation.navigate('Home');
     }
+
     const onForgotPress=()=>{
 
         //validate user
