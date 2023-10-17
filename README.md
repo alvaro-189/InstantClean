@@ -16,7 +16,7 @@ Lo primero es iniciar  **Metro** en una terminal.
 Para iniciarlo abre una terminal en la _raiz_ del proyecto:
 
 ```bash
-npm install
+npm start
 ```
 
 ## Paso 3: Inicia la aplicación
@@ -24,6 +24,6 @@ npm install
 Deja a metro en su _propia_ terminal. Abre una _nueva_ terminal en la _raiz_ del proyecto. 
 
 ```bash
-npm install
+npm run android
 ```
 ## Listo! :tada:
