@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Switch, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, Switch, StyleSheet, StatusBar,TouchableOpacity, DrawerLayoutAndroid} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useNavigation } from '@react-navigation/native';
 const ConfigurationScreen = () => {
   const [modoOscuro, setModoOscuro] = useState(false);
   const [notificaciones, setNotificaciones] = useState(true);
@@ -50,8 +50,48 @@ const ConfigurationScreen = () => {
     guardarConfiguracion('notificaciones', value);
     setNotificaciones(value);
   };
+  const navigationView=(
+    <View style={styles.navigationContainer}>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Empleos')} // Reemplaza 'Settings' con el nombre de la pantalla de configuración
+      >
+        <Text style={styles.navigationText}>Mis empleos</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Configuration')} // Reemplaza 'Settings' con el nombre de la pantalla de configuración
+      >
+        <Text style={styles.navigationText}>Configuración</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('SingIn')} // Reemplaza 'Login' con el nombre de la pantalla de inicio de sesión
+      >
+        <Text style={styles.navigationText}>Cerrar sesión</Text>
+      </TouchableOpacity>
+    </View>
+  )
+  const [data,setData]=useState(null);
+const navigation = useNavigation();
+let drawer;
+const openDrawer=()=>{
+  drawer.openDrawer();
+}
 
   return (
+    <DrawerLayoutAndroid
+    ref={_drawer => (drawer = _drawer)}
+    drawerWidth={300}
+    drawerPosition={"left"}
+    renderNavigationView={() => navigationView}
+    >
+    <View style={{width:300, height:60}}>
+    <TouchableOpacity onPress={openDrawer} style={styles.menuButton}>
+        <Text style={styles.menuButtonText}>Menu</Text>
+      </TouchableOpacity>
+    </View>
     <View style={[styles.container, { backgroundColor: modoOscuro ? '#333' : '#fff' }]}>
       <Text style={styles.sectionTitle}>Configuración</Text>
       <View style={styles.configItem}>
@@ -73,6 +113,7 @@ const ConfigurationScreen = () => {
         />
       </View>
     </View>
+    </DrawerLayoutAndroid>
   );
 };
 
@@ -96,6 +137,26 @@ const styles = StyleSheet.create({
   },
   configText: {
     fontSize: 20,
+  },
+  menuButton: {
+    position: 'absolute',
+    top: 30,
+    left: 10,
+    zIndex: 1,
+  },
+  menuButtonText: {
+    fontSize: 18,
+    color: 'blue',
+  },
+  navigationContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 20,
+    margin:20
+  },
+  navigationText: {
+    fontSize: 20,
+    marginBottom: 10,
   },
 });
 

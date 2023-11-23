@@ -9,14 +9,11 @@ const HomeScreen =({route})=>{
   const {userId}=route.params;
   const [data,setData]=useState(null);
   const navigation = useNavigation();
-  const postData =[
-    {id:1,title:'Post 1', content:'Contenido del post 1'},
-    {id:2, title:'Post 2', content:'Contenido del post '}
-  ]
+
   let drawer;
   useEffect(()=>{
     console.log(userId)
-    axios.get(`http://192.168.1.103:3001/users/getUserById/${userId}`)
+    axios.get(`http://192.168.1.31:3001/users/getUserById/${userId}`)
     .then(response=>{
       console.log(response.data)
       setData(response.data);
@@ -41,6 +38,12 @@ const HomeScreen =({route})=>{
         onPress={() => navigation.navigate('Profile',{userId:userId,userName: data[0].NombreCompleto})} // Reemplaza 'Profile' con el nombre de la pantalla de perfil
       >
         <Text style={styles.navigationText}>Perfil</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Empleos')} // Reemplaza 'Settings' con el nombre de la pantalla de configuración
+      >
+        <Text style={styles.navigationText}>Mis empleos</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}

@@ -14,7 +14,7 @@ const ForgotPasswordScreen=()=>{
         console.log(data)
         //navigation.navigate('NewPassword');
         try {
-            const response = await axios.post('http://192.168.1.103:3001/email/sendEmail',{
+            const response = await axios.post('http://192.168.1.31:3001/email/sendEmail',{
             to: data.email,
             subject:'Recuperar la contraseña',
             text:'Este es el contenido del mensaje de texto para enviar el codigo para reestablecer la contraseña',
