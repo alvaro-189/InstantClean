@@ -1,16 +1,30 @@
 import React, { useReducer, useState } from "react";
-import { View,Text , StyleSheet, useWindowDimensions, ScrollView} from "react-native"
+import { View,Text , StyleSheet, useWindowDimensions, ScrollView,SafeAreaView,Image,Alert} from "react-native"
 import CustomInput from "../../components/CustomInputs/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import {useNavigation} from "@react-navigation/native"
 import { useForm } from "react-hook-form";
+import BgImage from '../../../assets/blur.jpeg'
+import axios from "axios";
 const ForgotPasswordScreen=()=>{
     const navigation=useNavigation();
-    const{control,handleSubmit,formState:{errors}}=useForm();
+    const{control,handleSubmit,formState:{errors},reset}=useForm();
     
-    const onSendPress=(data)=>{
+    const onSendPress=async(data)=>{
         console.log(data)
-        navigation.navigate('NewPassword');
+        //navigation.navigate('NewPassword');
+        try {
+            const response = await axios.post('http://192.168.1.103:3001/email/sendEmail',{
+            to: data.email,
+            subject:'Recuperar la contraseña',
+            text:'Este es el contenido del mensaje de texto para enviar el codigo para reestablecer la contraseña',
+            })
+            
+            Alert.alert("Correo enviado con éxito");
+            
+        } catch (error) {
+            console.error("error al enviar el correo desde la aplicación",error)
+        }
     }
 
     const onSingInPress=()=>{
@@ -18,6 +32,8 @@ const ForgotPasswordScreen=()=>{
         navigation.navigate("SingIn")
     }
     return(
+        <SafeAreaView style={{flex:1, backgroundColor:'transparent'}}>
+            <Image source={BgImage} style={styles.backgroundImage}/> 
         <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.root}>
             <Text style={styles.title}>¿Olvidaste tu constaseña?</Text>
@@ -38,6 +54,8 @@ const ForgotPasswordScreen=()=>{
             <CustomButton text="Iniciar Sesión"onPress={onSingInPress} />
         </View>
         </ScrollView>
+        </SafeAreaView>
+
     )
 }
 const styles = StyleSheet.create({
@@ -45,6 +63,9 @@ const styles = StyleSheet.create({
         alignItems:'center',
         // backgroundColor:'black',
         padding:50,
+        flex:1,
+        justifyContent:'center',
+        backgroundColor:'transparent'
     },
     logo:{
        width:'70%',
@@ -61,8 +82,14 @@ const styles = StyleSheet.create({
         color:'white'
     },
     bold:{
-        
         color:'#c2cc02'
-    }
+    },
+    backgroundImage:{
+        flex:1,
+        width:'100%',
+        height:'100%',
+        resizeMode:'cover',
+        position:'absolute'
+    },
 })
 export default ForgotPasswordScreen

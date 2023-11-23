@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { View,Text , StyleSheet, useWindowDimensions, ScrollView} from "react-native"
+import { View,Text , StyleSheet, useWindowDimensions, ScrollView, Alert,Image} from "react-native"
 import CustomInput from "../../components/CustomInputs/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import {useNavigation} from "@react-navigation/native";
 import {useForm,Controller} from "react-hook-form";
+import axios from "axios";
+import { SafeAreaView } from "react-native-safe-area-context";
+import BgImage from '../../../assets/blur.jpeg'
 const SingUpScreen=()=>{
 
     const navigation = useNavigation();
@@ -14,13 +17,31 @@ const SingUpScreen=()=>{
         console.log(data);
         navigation.navigate("ConfirmEmail")
     }
-    const onSingUpPress=()=>{
+    const onSingInPress=()=>{
 
         navigation.navigate("SingIn")
+    }
+    const onSingUpPress=(data)=>{
+        console.log(data);
+        axios.post("http://192.168.1.103:3001/users/createUser",data)
+        .then(response=>{
+            console.log(response.data);
+            Alert.alert("Usuario creado con éxito");
+            navigation.navigate("SingIn")
+        })
+        .catch(error=>{
+            console.log('Error al crear el usuario',error);
+            if(error.response){
+                console.log(error.response.data);
+                Alert.alert('Error','no se pudo crear al usuario')
+            }
+        })
     }
 
 
     return(
+        <SafeAreaView style={{flex:1, backgroundColor:'transparent'}}>
+            <Image source={BgImage} style={styles.backgrounImage}></Image>
         <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.root}>
             <Text style={styles.title}>Nueva Cuenta</Text>
@@ -67,10 +88,11 @@ const SingUpScreen=()=>{
             rules={{required:'Ingresa tu Ciudad'}}
             />
             <CustomButton 
-            text="CREAR CUENTA" onPress={handleSubmit(registerPress)} type="PRIMARY"/>
-            <CustomButton text="Ya tengo una cuenta" type="TERTIARY"onPress={onSingUpPress} />
+            text="CREAR CUENTA" onPress={handleSubmit(onSingUpPress)} type="PRIMARY"/>
+            <CustomButton text="Ya tengo una cuenta" type="TERTIARY"onPress={onSingInPress} />
         </View>
         </ScrollView>
+        </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
@@ -96,6 +118,13 @@ const styles = StyleSheet.create({
     bold:{
         
         color:'#c2cc02'
-    }
+    },
+    backgrounImage:{
+        flex:1,
+        width:'100%',
+        height:'100%',
+        resizeMode:'cover',
+        position:'absolute'
+    },
 })
 export default SingUpScreen

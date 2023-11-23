@@ -21,8 +21,9 @@ const styles = StyleSheet.create({
         backgroundColor:'#c2cc02',
     },
     container_TERTIARY:{
-       borderColor:'#c2cc02',
-       borderWidth:2,
+      // borderColor:'#c2cc02',
+       backgroundColor:'#c3cc02',
+       //borderWidth:2,
     },
     text:{
         fontWeight:'bold',
@@ -32,7 +33,8 @@ const styles = StyleSheet.create({
         color:'#c2cc02'
     },
     text_TERTIARY:{
-        color:'#c2cc02'
+       // color:'#c2cc02'
+       color:'white'
     },
 
 })

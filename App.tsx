@@ -15,7 +15,7 @@ function App(): JSX.Element {
 const styles = StyleSheet.create({
  root:{
   flex:1,
-  backgroundColor:'white'
+  backgroundColor:'black'
  }
 });
 

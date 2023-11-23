@@ -1,11 +1,13 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import Colors from './utils/Colors';
-
-import Images from './utils/Images';
-
-import Styles from './utils/Styles';
-
+import Colors from '../components/utils/Colors';
+//import Icon from 'react-native-vector-icons/Entypo';
+//import {deviceWidth} from './Dimensions';
+import Images from '../components/utils/Images';
+//import CustomIcon from '../Components/CustomIcon';
+import Styles from '../components/utils/Styles';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHeart,faMugSaucer } from '@fortawesome/free-solid-svg-icons';
 export default function ShowPosts({item}) {
   return (
     <View
@@ -46,7 +48,7 @@ export default function ShowPosts({item}) {
           <TouchableOpacity
             onPress={() => {}}
             style={{width: 80, alignItems: 'flex-end'}}>
-            
+           
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
@@ -85,7 +87,7 @@ export default function ShowPosts({item}) {
       {item.hasImage ? (
         <Image
           source={item.postImage}
-          style={{height: 300, width: deviceWidth}}
+          style={{height: 300, width: 'auto'}}
         />
       ) : null}
 
@@ -104,7 +106,7 @@ export default function ShowPosts({item}) {
         </View>
         <View style={Styles.flexCenter}>
           {item.comments > 0 ? <Text>{item.comments} comments</Text> : null}
-          
+         
           {item.shares > 0 ? <Text>{item.shares} shares</Text> : null}
         </View>
       </View>
@@ -127,21 +129,21 @@ export default function ShowPosts({item}) {
           <Text style={{color: item.isLiked ? Colors.BLUE : Colors.GRAY}}>
             Like
           </Text>
+          
         </TouchableOpacity>
 
         <TouchableOpacity style={{alignItems: 'center'}} onPress={() => {}}>
-
-          <Text>comment</Text>
+          
+          <Text>Comment</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={{alignItems: 'center'}} onPress={() => {}}>
-          <Icon name="share" size={19} color={Colors.GRAY} />
-          <Text>share</Text>
+          
+          <Text>Share</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={{alignItems: 'center'}} onPress={() => {}}>
-
-          <Text>send</Text>
+          <Text>Send</Text>
         </TouchableOpacity>
       </View>
     </View>

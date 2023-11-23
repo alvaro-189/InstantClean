@@ -1,14 +1,12 @@
-
-
-
 import React, { useState } from "react";
-import { View,Text ,TextInput,Image, StyleSheet, useWindowDimensions, ScrollView} from "react-native"
+import { View,Text ,TextInput,Image, StyleSheet, useWindowDimensions, ScrollView,Alert, SafeAreaView} from "react-native"
 import Logo from "../../../assets/Logos/Logo.png"
-
+import BgImage from '../../../assets/blur.jpeg'
 import CustomInput from "../../components/CustomInputs/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import {useNavigation} from '@react-navigation/native'
 import {useForm,Controller} from "react-hook-form";
+import axios from "axios";
 const SingInScreen=()=>{
 
     const {height}=useWindowDimensions();
@@ -16,8 +14,25 @@ const SingInScreen=()=>{
     const{control,handleSubmit,formState:{errors}}=useForm();
     const onSingInPress=(data)=>{
         console.log(data)
+        let userId;
         //validate user
-        navigation.navigate('Home');
+        axios.post("http://192.168.1.103:3001/users/loginUser",data)
+        .then(response=>{
+            const userData=response.data
+            if (userData && userData.ID) {
+                userId = userData.ID;
+                console.log("ID de usuario:", userId);
+            }
+            navigation.navigate('Home',{userId:userId});
+        })
+        .catch(error=>{
+            console.log('Error al hacer post',error)
+            if(error.response){
+                console.log(error.response.data)
+                Alert.alert('Error','Credenciales inválidas');
+            }
+        })
+        
     }
 
     const onForgotPress=()=>{
@@ -34,9 +49,11 @@ const SingInScreen=()=>{
     }
 
     return(
+        <SafeAreaView style={{flex:1, backgroundColor:'transparent'}}>
+             <Image source={BgImage} style={styles.backgrounImage}></Image>
         <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.root}>
-            {/* <Image source={BgImage} style={styles.backgrounImage}></Imaee> */}
+           
             <Image source={Logo} style={[styles.logo,{height:height*0.2}]} resizeMode="contain"/>
             <CustomInput 
             name="email" 
@@ -60,6 +77,7 @@ const SingInScreen=()=>{
             <CustomButton text="Registrarse" onPress={onSingUpPress} />
         </View>
         </ScrollView>
+        </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({

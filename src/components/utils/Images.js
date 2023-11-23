@@ -15,6 +15,7 @@ export default Images = {
     UNIVERSITY: require('../../../assets/Logos/university.png')
   },
   USERS: {
+    USER0: require('../../../assets/Profiles/profileImage.jpg'),
     USER1: require('../../../assets/users/user1.jpg'),
     USER2: require('../../../assets/users/user2.jpg'),
     USER3: require('../../../assets/users/user3.jpg'),
