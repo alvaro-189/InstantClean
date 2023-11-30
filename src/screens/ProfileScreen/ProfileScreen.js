@@ -5,8 +5,8 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import Posts from "./Posts";
 const ProfileScreen=({route})=>{
-    const {userName}= route.params;
-    const {userId}=route.params;
+    const {userName}= route.params || 1;
+    const {userId}=route.params || 1;
     const userImage = require("../../../assets/Profiles/profileImage.jpg")
     const coverImage = require("../../../assets/Profiles/coverImage.jpg")
     const navigationView=(
@@ -27,7 +27,7 @@ const ProfileScreen=({route})=>{
           style={styles.button}
           onPress={() => navigation.navigate('Empleos')} // Reemplaza 'Settings' con el nombre de la pantalla de configuración
         >
-          <Text style={styles.navigationText}>Mis empleos</Text>
+          <Text style={styles.navigationText}>Nuevo empleo</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
@@ -51,7 +51,7 @@ const ProfileScreen=({route})=>{
   }
   useEffect(()=>{
     console.log(userId)
-    axios.get(`http://192.168.1.31:3001/users/getUserById/${userId}`)
+    axios.get(`http://192.168.1.19:3001/users/getUserById/${userId}`)
     .then(response=>{
       console.log(response.data)
       setData(response.data);

@@ -23,7 +23,7 @@ const SingUpScreen=()=>{
     }
     const onSingUpPress=(data)=>{
         console.log(data);
-        axios.post("http://192.168.1.31:3001/users/createUser",data)
+        axios.post("http://192.168.1.19:3001/users/createUser",data)
         .then(response=>{
             console.log(response.data);
             Alert.alert("Usuario creado con éxito");

@@ -12,6 +12,10 @@ import HomeScreen from "../screens/HomeScreen";
 import ConfigurationScreen from "../screens/ConfigurationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import EmpleosScreen from "../screens/EmpleosScreen";
+import BuyMembershipScreen from "../screens/BuyMembershipScreen";
+import JobSearchScreen from "../components/JobSearchScreen/JobSearchScreen";
+import JobDetailsScreen from "../screens/JobDetailsScreen";
+
 const Stack = createNativeStackNavigator();
 
 const Navigation =()=>{
@@ -27,6 +31,9 @@ const Navigation =()=>{
             <Stack.Screen name="Configuration" component={ConfigurationScreen}/>
             <Stack.Screen name="Empleos" component={EmpleosScreen}/>
             <Stack.Screen name="Profile" component={ProfileScreen}/>
+            <Stack.Screen name="BuyMembership" component={BuyMembershipScreen}/>
+            <Stack.Screen name="JobSearch" component={JobSearchScreen}/>
+            <Stack.Screen name="JobDetails" component={JobDetailsScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

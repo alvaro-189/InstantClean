@@ -16,7 +16,7 @@ const SingInScreen=()=>{
         console.log(data)
         let userId;
         //validate user
-        axios.post("http://192.168.1.31:3001/users/loginUser",data)
+        axios.post("http://192.168.1.19:3001/users/loginUser",data)
         .then(response=>{
             const userData=response.data
             if (userData && userData.ID) {

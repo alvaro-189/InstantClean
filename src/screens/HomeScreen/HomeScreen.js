@@ -6,14 +6,14 @@ import ShowPosts from '../../components/ShowPosts'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from "@react-navigation/native";
 const HomeScreen =({route})=>{
-  const {userId}=route.params;
+  const {userId}=route.params || 1;
   const [data,setData]=useState(null);
   const navigation = useNavigation();
 
   let drawer;
   useEffect(()=>{
     console.log(userId)
-    axios.get(`http://192.168.1.31:3001/users/getUserById/${userId}`)
+    axios.get(`http://192.168.1.19:3001/users/getUserById/${userId}`)
     .then(response=>{
       console.log(response.data)
       setData(response.data);
@@ -35,15 +35,34 @@ const HomeScreen =({route})=>{
       ))}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Profile',{userId:userId,userName: data[0].NombreCompleto})} // Reemplaza 'Profile' con el nombre de la pantalla de perfil
+        onPress={
+          () => navigation.navigate('Profile',{userId:userId,userName: data[0].NombreCompleto})} // Reemplaza 'Profile' con el nombre de la pantalla de perfil
       >
         <Text style={styles.navigationText}>Perfil</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('JobSearch')} // Reemplaza 'Settings' con el nombre de la pantalla de configuración
+      >
+        <Text style={styles.navigationText}>Buscar empleo</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Empleos')} // Reemplaza 'Settings' con el nombre de la pantalla de configuración
+      >
+        <Text style={styles.navigationText}>Nuevo empleos</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Empleos')} // Reemplaza 'Settings' con el nombre de la pantalla de configuración
       >
         <Text style={styles.navigationText}>Mis empleos</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('BuyMembership')} // Reemplaza 'Settings' con el nombre de la pantalla de configuración
+      >
+        <Text style={styles.navigationText}>Membresia Premium</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
